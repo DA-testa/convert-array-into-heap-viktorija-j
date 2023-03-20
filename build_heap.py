@@ -2,14 +2,14 @@
 
 def heapify(data, n, i, swaps):
     smallest = i
-    left_child = 2 * i + 1
-    right_child = 2 * i + 2
+    l = 2 * i + 1
+    r = 2 * i + 2
 
-    if left_child < n and data[left_child] < data[smallest]:
-        smallest = left_child
+    if l < n and data[l] < data[smallest]:
+        smallest = l
 
-    if right_child < n and data[right_child] < data[smallest]:
-        smallest = right_child
+    if r < n and data[r] < data[smallest]:
+        smallest = r
 
     if smallest != i:
         swaps.append((i, smallest))
@@ -29,12 +29,12 @@ def build_heap(data):
 def main():
 
     input_type = input("I or F: ")
-    if input_type == "I":
+    if "I" in input_type:
         n = int(input())
         data = list(map(int, input().split()))
 
 
-    elif input_type == "F":
+    elif "F" in input_type:
         filename = input("File name: ")
         with open("tests/"+filename, 'r') as f:
             n = int(f.readline())

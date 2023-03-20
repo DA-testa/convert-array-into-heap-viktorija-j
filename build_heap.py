@@ -1,28 +1,45 @@
 #211RDB250
 
-def sift_down(i, n, data, swaps):
-    min_index = i
-    left_child = 2 * i + 1
-    if left_child < n and data[left_child] < data[min_index]:
-        min_index = left_child
-    right_child = 2 * i + 2
-    if right_child < n and data[right_child] < data[min_index]:
-        min_index = right_child
-    if i != min_index:
-        data[i], data[min_index] = data[min_index], data[i]
-        swaps.append((i, min_index))
-        sift_down(min_index, n, data, swaps)
+def heapify(i, data):
+    parent = (i - 1) // 2
 
-def build_heap(n, data):
+    if i == 2 and len(data) == 3:
+        parent = 0
+
+    if parent < 0:
+        return 0
+
+    if data[i] < data[parent]:
+        print(parent, i)
+        data[i], data[parent] = data[parent], data[i]
+        return 1 + heapify(parent, data)
+
+    return 0
+
+
+def build_heap(data):
+    n = len(data)
     swaps = []
+
     for i in range(n // 2, -1, -1):
-        sift_down(i, n, data, swaps)
+        for j in range(heapify(i, data)):
+            swaps.append((i, (i - 1) // 2))
+
     return swaps
 
-if __name__ == "__main__":
+
+def main():
     n = int(input())
     data = list(map(int, input().split()))
-    swaps = build_heap(n, data)
+
+    assert len(data) == n
+
+    swaps = build_heap(data)
+
     print(len(swaps))
-    for swap in swaps:
-        print(swap[0], swap[1])
+    for i, j in swaps:
+        print(i, j)
+
+
+if __name__ == "__main__":
+    main()

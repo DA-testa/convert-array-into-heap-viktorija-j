@@ -1,42 +1,40 @@
-# python3
+#211RDB250
 
+def biuld_heap(i, data):
+    parent = (i//2) - 1
+    if i == 3:
+        parent = 1
 
-def build_heap(data):
-    swaps = []
-    # TODO: Creat heap and heap sort
-    # try to achieve  O(n) and not O(n2)
+    if parent < 0:
+        return
 
-
-    return swaps
-
+    if data[i] < data[parent]:
+        # swap parent and child
+        print(parent, i)
+        data[i], data[parent] = data[parent], data[i]
+        biuld_heap(parent, data)
 
 def main():
-    
-    # TODO : add input and corresponding checks
-    # add another input for I or F 
-    # first two tests are from keyboard, third test is from a file
+    inp = input()
+    if inp == "I":
+        n = int(input())
+        data = list(map(int, input().split()))
+    elif inp == "F":
+        print("F")
+        return
 
-
-    # input from keyboard
-    n = int(input())
-    data = list(map(int, input().split()))
-
-    # checks if lenght of data is the same as the said lenght
     assert len(data) == n
 
-    # calls function to assess the data 
-    # and give back all swaps
-    swaps = build_heap(data)
+    leaves = list(range(n//2, n))
+    print("leaves =", leaves, "\n")
 
-    # TODO: output how many swaps were made, 
+    for k in leaves[::-1]:
+        biuld_heap(k, data)
+
+    # output how many swaps were made
     # this number should be less than 4n (less than 4*len(data))
-
-
-    # output all swaps
-    print(len(swaps))
-    for i, j in swaps:
-        print(i, j)
-
+    print(1)
 
 if __name__ == "__main__":
     main()
+

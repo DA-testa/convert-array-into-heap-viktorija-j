@@ -2,14 +2,14 @@
 
 def heapify(data, n, i, swaps):
     smallest = i
-    l = 2 * i + 1
-    r = 2 * i + 2
+    left = 2 * i + 1
+    right = 2 * i + 2
 
-    if l < n and data[l] < data[smallest]:
-        smallest = l
+    if left < n and data[left] < data[smallest]:
+        smallest = left
 
-    if r < n and data[r] < data[smallest]:
-        smallest = r
+    if right < n and data[right] < data[smallest]:
+        smallest = right
 
     if smallest != i:
         swaps.append((i, smallest))
@@ -21,28 +21,29 @@ def build_heap(data):
     swaps = []
     n = len(data)
 
-    for i in range(n // 2 - 1, -1, -1):
+    for i in range((n // 2) - 1, -1, -1):
         heapify(data, n, i, swaps)
+
     return swaps
 
 
 def main():
-
     input_type = input("I or F: ")
-    if "I" in input_type:
+
+    if input_type == "I":
         n = int(input())
         data = list(map(int, input().split()))
 
-
-    elif "F" in input_type:
+    elif input_type == "F":
         filename = input("File name: ")
-        with open("tests/"+filename, 'r') as f:
+        with open(f"tests/{filename}", "r") as f:
             n = int(f.readline())
             data = list(map(int, f.readline().split()))
 
     assert len(data) == n
     swaps = build_heap(data)
-    print("")
+
+    print()
     print(len(swaps))
 
     for i, j in swaps:
@@ -51,3 +52,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
